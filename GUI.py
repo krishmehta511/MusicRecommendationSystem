@@ -21,7 +21,7 @@ def splash(username):
         win.title("Music Recommendation App")
         win.geometry("4500x3000")
         #mood buttons
-        
+        print("Hi")
  
     splash_win.after(2000, mainWin)
     def print():
