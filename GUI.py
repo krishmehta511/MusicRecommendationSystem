@@ -3,70 +3,11 @@ from PIL import Image, ImageTk
 import tkinter.messagebox as m
 import time
 import json
-import sqlite3
-from reportlab.platypus import SimpleDocTemplate,Paragraph,Table,TableStyle
-from reportlab.lib import colors
-
-
-
-# conn= sqlite3.connect('reportss.db')
-# c=conn.cursor()
-# c.execute("""UPDATE TABLE output(
-# #     fname text,
-# #     USER_ID int)""")
-# conn.commit()
-# conn.close()
-
-# def save_database():
-#     conn= sqlite3.connect('reports1.db')
-    
-#     c=conn.cursor()
-    
-#     c.execute("""INSERT INTO adres6 VALUES (:user_name , :result)""",
-#             {
-#                 'user_name' : user_name.get(),
-                
-#                 'result' : result.get()
-#             })
-#     conn.commit()
-#     conn.close()
-
-# def show_database():
-#     conn= sqlite3.connect('reportss.db')
-#     c=conn.cursor()
-
-#     c.execute("SELECT * , oid FROM output")
-#     rec=c.fetchall()
-#     print(rec)
-    
-#     conn.commit()
-#     conn.close()
-
-# def download():
-#     pdf=SimpleDocTemplate("Report.pdf")
-#     flow_obj=[]
-#     td=[["user_name","result"],]
-#     conn= sqlite3.connect('reportss.db')
-#     c=conn.cursor()
-#     c.execute("SELECT * FROM output")
-#     rec=c.fetchall()
-#     for row in rec:
-#         td.append(row)
-#     table=Table(td)
-#     ts=TableStyle([("GRID",(0,0),(-1,-1),2,colors.white)])
-#     table.setStyle(ts)
-#     flow_obj.append(table)
-#     pdf.build(flow_obj)
-#     conn.commit()
-#     conn.close()
-
-
-    
 
 def splash(username):
     splash_win= Tk()
 
-    splash_win.title("Health Tracker App")
+    splash_win.title("Music Recommendation App")
 
     splash_win.geometry("4500x3000")
 
@@ -77,43 +18,11 @@ def splash(username):
     def mainWin():
         splash_win.destroy()
         win= Tk()
-        win.title("Welcome to Health Tracker")
+        win.title("Music Recommendation App")
         win.geometry("4500x3000")
+        #mood buttons
         
-        win_label= Label(win, text= "Main Window", font= ('Helvetica', 25), fg= "red").pack(pady=20)
-
-        C1 = Checkbutton(win, text ="lorem",fg="black",bg="white",font="Castellar",height=2,width=5, 
-                        relief="solid",command = print)  
-        C1.pack() 
-
-        C2 = Checkbutton(win, text ="ipsum",fg="black",bg="white",font="Castellar",height=2,width=5, 
-                        relief="solid",command = print)  
-        C2.pack() 
-
-
-        C3 = Checkbutton(win, text ="ipsum",fg="black",bg="white",font="Castellar",height=2,width=5, 
-                        relief="solid",command = print)  
-        C3.pack()
-        
-       
-
-
-
-        
-        # save_report = Button(win,text="Save Report",bg='#C6E2FF',width=10,font="poppins 12 bold",command=save_database)
-        # save_report.pack()
-
-        # show_report = Button(win,text="Show Previous Reports",bg='#C6E2FF',width=10,font="poppins 12 bold",command=show_database)
-        # show_report.pack()
-
-        # download_pdf= Button(win,text="Download Report PDF",bg='#C6E2FF',width=10,font="poppins 12 bold",command=download)
-        # download_pdf.pack()
-
-
-        
-        
-
-
+ 
     splash_win.after(2000, mainWin)
     def print():
         print("Hi")
@@ -154,7 +63,7 @@ def login_check():
     else:
         user_name.delete(0,END)
         password.delete(0,END)
-        #m.showerror(title="Error",message="Username and Password don't match")
+        m.showerror(title="Error",message="Username and Password don't match")
         error_label=Label(mainWindow,text="Username and Password don't match",fg="black",font=("Times New Roman", 20, "bold"))
         error_label.place(x=350,y=550)
         login_done = Button(mainWindow,text="Login",bg='#C6E2FF',width=10,font="poppins 12 bold",command= login_check)
@@ -195,8 +104,7 @@ Please Login to continue''')
     password1.delete(0,END)
     user_name1.delete(0,END)
 
-
-    #print(username,password,age,gender)
+#print(username,password,age,gender)
 #LOGIN PART
 Login_label=Label(mainWindow,text="LOGIN",fg="red",font="poppins 25 bold")
 Login_label.place(x=420,y=170)
