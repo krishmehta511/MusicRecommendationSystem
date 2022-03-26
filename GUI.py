@@ -125,14 +125,14 @@ mainWindow.geometry("4500x3000")
 mainWindow.config()
 
 
-image1 = Image.open("login.png")
+image1 = Image.open("login.jpg")
 image1 = image1.resize((1530,795), Image.ANTIALIAS)
 test1 = ImageTk.PhotoImage(image1)
 label1 = Label(image=test1)
 label1.image = test1
 label1.place(x = 0, y = 0)
-canvas=Canvas(mainWindow, width=900, height=400)
-canvas.place(x=300,y=200)
+# canvas=Canvas(mainWindow, width=900, height=400)
+# canvas.place(x=300,y=200)
 
 #LOGIN PASSWORD CHECK
 def login_check():
@@ -198,24 +198,24 @@ Please Login to continue''')
 
     #print(username,password,age,gender)
 #LOGIN PART
-Login_label=Label(mainWindow,text="LOGIN",fg="blue",font="poppins 25 bold")
+Login_label=Label(mainWindow,text="LOGIN",fg="red",font="poppins 25 bold")
 Login_label.place(x=420,y=170)
-Reg_label=Label(mainWindow,text="REGISTER",fg="blue",font="poppins 25 bold")
+Reg_label=Label(mainWindow,text="REGISTER",fg="red",font="poppins 25 bold")
 Reg_label.place(x=870,y=170)
-username = Label(mainWindow,text="Username:",fg="red", font="poppins 15 bold")
+username = Label(mainWindow,text="Username:",fg="blue", font="poppins 15 bold")
 username.place(x=350,y=270)
 user_name=Entry(mainWindow, font="poppins 15 bold")
 user_name.place(x=450,y=270)
-pass_word = Label(mainWindow,text="Password ",fg="red", font="poppins 15 bold")
+pass_word = Label(mainWindow,text="Password ",fg="blue", font="poppins 15 bold")
 pass_word.place(x=350,y=370)
 password=Entry(mainWindow,show="*", font="poppins 15 bold")
 password.place(x=450,y=370)
 print(password.get())
-canvas.create_line(460,80,460,250, fill="green", width=5)
+# canvas.create_line(460,80,460,250, fill="green", width=5)
 login_done = Button(mainWindow,text="Login",bg='#C6E2FF',width=10,font="poppins 12 bold",command= login_check)
 login_done.place(x=450,y=500)
 
-#REGISTRATION PART
+#REGISTRATION PART 
 sign_in = Button(mainWindow,text="Register",bg='#C6E2FF',width=10,font="poppins 12 bold",command=get_regIngo)
 sign_in.place(x=900,y=500)
 username1 = Label(mainWindow,text="Username:",fg="red", font="poppins 15 bold")
