@@ -21,7 +21,13 @@ def splash(username):
         win.title("Music Recommendation App")
         win.geometry("4500x3000")
         #mood buttons
-        print("Hi")
+
+        pic = ImageTk.PhotoImage(Image.open("happy.png"))
+        h = Button(win, image=pic).pack()
+
+
+
+
  
     splash_win.after(2000, mainWin)
     def print():
