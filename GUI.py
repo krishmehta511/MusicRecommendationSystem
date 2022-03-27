@@ -1,179 +1,261 @@
 from tkinter import *
 from PIL import Image, ImageTk
 import tkinter.messagebox as m
-import time
 import json
+import spotipy
+from spotipy.oauth2 import SpotifyClientCredentials
+
+sp = spotipy.Spotify(client_credentials_manager=SpotifyClientCredentials("ba623367dcfc46f7996d9d29388eec92",
+                                                                         "17e48ddd56a74778a057069d587a9ec5"))
+
 
 def splash(username):
-    splash_win= Tk()
-
+    splash_win = Tk()
     splash_win.title("Music Recommendation App")
-
     splash_win.geometry("4500x3000")
-
+    splash_win.state('zoomed')
     splash_win.overrideredirect(True)
+    Label(splash_win, text="Welcome " + username, fg="green", font=('Times New Roman', 90)).place(x=400, y=350)
 
-    splash_label= Label(splash_win, text= "Welcome "+username, fg= "green",font= ('Times New Roman', 90))
-    splash_label.place(x=400,y=350)
     def mainWin():
         splash_win.destroy()
-        win= Toplevel()
+        win = Toplevel()
         win.title("Music Recommendation App")
+        win.state('zoomed')
         win.geometry("4500x3000")
-        #mood buttons
 
-        global pic
-        pic = ImageTk.PhotoImage(Image.open("happy2.png"))
-        h = Button(win,width=200,height=200, image=pic)
-        h.place(x=500,y=200)
-       # l1 = Label(win,text='HAPPY').place(x=580,y=180)
+        frame1 = Frame(win, bg='grey')
+        frame1.pack(anchor=NW, fill=X)
+        frame2 = Frame(win, bg='grey', height=600)
+        frame2.pack(side=TOP, fill=BOTH)
+
+        def getHappySongs():
+            for widgets in frame2.winfo_children():
+                widgets.destroy()
+            Label(frame2, text='\t', bg='grey').grid(row=0, column=0, padx=20, pady=5, sticky=W)
+            Label(frame2, text='Songs\t\t\t\t', font='comics 25 bold underline', bg='grey'). \
+                grid(row=0, column=1, pady=5, sticky=W)
+            Label(frame2, text='Artist', font='comics 25 bold underline', bg='grey'). \
+                grid(row=0, column=2, pady=5, sticky=W)
+            genre_list = ['indian']
+            s_rec = sp.recommendations(seed_genres=genre_list, limit=70)
+            count = 0
+            for i in range(70):
+                if count < 10:
+                    rec = s_rec['tracks'][i]['name']
+                    song_id = [s_rec['tracks'][i]['id']]
+                    artist = s_rec['tracks'][i]['artists'][0]['name']
+                    valence = sp.audio_features(song_id)[0]['valence']
+                    if valence >= 0.65:
+                        count += 1
+                        Label(frame2, text=f'{count} .', font='comics 18 normal', bg='grey'). \
+                            grid(row=count, column=0, padx=10, pady=8, sticky=W)
+                        Label(frame2, text=rec, font='comics 18 normal', bg='grey').\
+                            grid(row=count, column=1, padx=10, pady=8, sticky=W)
+                        Label(frame2, text=artist, font='comics 18 normal', bg='grey').\
+                            grid(row=count, column=2, padx=10, pady=8, sticky=W)
+
+        def getSadSongs():
+            for widgets in frame2.winfo_children():
+                widgets.destroy()
+            Label(frame2, text='\t', bg='grey').grid(row=0, column=0, padx=20, pady=5, sticky=W)
+            Label(frame2, text='Songs\t\t\t\t', font='comics 25 bold underline', bg='grey'). \
+                grid(row=0, column=1, pady=5, sticky=W)
+            Label(frame2, text='Artist', font='comics 25 bold underline', bg='grey'). \
+                grid(row=0, column=2, pady=5, sticky=W)
+            genre_list = ['indian']
+            s_rec = sp.recommendations(seed_genres=genre_list, limit=70)
+            count = 0
+            for i in range(70):
+                if count < 10:
+                    rec = s_rec['tracks'][i]['name']
+                    song_id = [s_rec['tracks'][i]['id']]
+                    artist = s_rec['tracks'][i]['artists'][0]['name']
+                    valence = sp.audio_features(song_id)[0]['valence']
+                    if valence <= 0.4:
+                        count += 1
+                        Label(frame2, text=f'{count} .', font='comics 18 normal', bg='grey'). \
+                            grid(row=count, column=0, padx=10, pady=8, sticky=W)
+                        Label(frame2, text=rec, font='comics 18 normal', bg='grey').\
+                            grid(row=count, column=1, padx=10, pady=8, sticky=W)
+                        Label(frame2, text=artist, font='comics 18 normal', bg='grey').\
+                            grid(row=count, column=2, padx=10, pady=8, sticky=W)
+
+        def getRelaxedSongs():
+            for widgets in frame2.winfo_children():
+                widgets.destroy()
+            Label(frame2, text='\t', bg='grey').grid(row=0, column=0, padx=20, pady=5, sticky=W)
+            Label(frame2, text='Songs\t\t\t\t', font='comics 25 bold underline', bg='grey'). \
+                grid(row=0, column=1, pady=5, sticky=W)
+            Label(frame2, text='Artist', font='comics 25 bold underline', bg='grey'). \
+                grid(row=0, column=2, pady=5, sticky=W)
+            genre_list = ['indian']
+            s_rec = sp.recommendations(seed_genres=genre_list, limit=70)
+            count = 0
+            for i in range(70):
+                if count < 10:
+                    rec = s_rec['tracks'][i]['name']
+                    song_id = [s_rec['tracks'][i]['id']]
+                    artist = s_rec['tracks'][i]['artists'][0]['name']
+                    energy = sp.audio_features(song_id)[0]['energy']
+                    if energy <= 0.5:
+                        count += 1
+                        Label(frame2, text=f'{count} .', font='comics 18 normal', bg='grey'). \
+                            grid(row=count, column=0, padx=10, pady=8, sticky=W)
+                        Label(frame2, text=rec, font='comics 18 normal', bg='grey').\
+                            grid(row=count, column=1, padx=10, pady=8, sticky=W)
+                        Label(frame2, text=artist, font='comics 18 normal', bg='grey').\
+                            grid(row=count, column=2, padx=10, pady=8, sticky=W)
+
+        def getPartySongs():
+            for widgets in frame2.winfo_children():
+                widgets.destroy()
+            Label(frame2, text='\t', bg='grey').grid(row=0, column=0, padx=20, pady=5, sticky=W)
+            Label(frame2, text='Songs\t\t\t\t', font='comics 25 bold underline', bg='grey'). \
+                grid(row=0, column=1, pady=5, sticky=W)
+            Label(frame2, text='Artist', font='comics 25 bold underline', bg='grey'). \
+                grid(row=0, column=2, pady=5, sticky=W)
+            genre_list = ['indian']
+            s_rec = sp.recommendations(seed_genres=genre_list, limit=70)
+            count = 0
+            for i in range(70):
+                if count < 10:
+                    rec = s_rec['tracks'][i]['name']
+                    song_id = [s_rec['tracks'][i]['id']]
+                    artist = s_rec['tracks'][i]['artists'][0]['name']
+                    danceability = sp.audio_features(song_id)[0]['danceability']
+                    if danceability >= 0.75:
+                        count += 1
+                        Label(frame2, text=f'{count} .', font='comics 18 normal', bg='grey'). \
+                            grid(row=count, column=0, padx=10, pady=8, sticky=W)
+                        Label(frame2, text=rec, font='comics 18 normal', bg='grey').\
+                            grid(row=count, column=1, padx=10, pady=8, sticky=W)
+                        Label(frame2, text=artist, font='comics 18 normal', bg='grey').\
+                            grid(row=count, column=2, padx=10, pady=8, sticky=W)
+
+        def getLoveSongs():
+            for widgets in frame2.winfo_children():
+                widgets.destroy()
+
+        global pic1
+        pic1 = ImageTk.PhotoImage(Image.open('images/happy2.png'))
+        h = Button(frame1, width=120, height=120, image=pic1, command=lambda: getHappySongs(), bd=0)
+        h.grid(row=0, column=0, padx=50, pady=17)
 
         global pic2
-        pic2 = ImageTk.PhotoImage(Image.open("sad2.png"))
-        s = Button(win, width=200,height=200,image=pic2 )
-        s.place(x=800,y=200)
+        pic2 = ImageTk.PhotoImage(Image.open("images/sad2.png"))
+        s = Button(frame1, width=120, height=120, image=pic2, command=lambda: getSadSongs())
+        s.grid(row=0, column=1, padx=50, pady=17)
 
         global pic3
-        pic3 = ImageTk.PhotoImage(Image.open("love2.png"))
-        l = Button(win,width=200,height=200, image=pic3)
-        l.place(x=1100, y=200)
+        pic3 = ImageTk.PhotoImage(Image.open("images/love2.png"))
+        l = Button(frame1, width=120, height=120, image=pic3, command=lambda: getLoveSongs())
+        l.grid(row=0, column=2, padx=50, pady=17)
 
         global pic4
-        pic4 = ImageTk.PhotoImage(Image.open("party.png"))
-        p = Button(win,width=200,height=200, image=pic4)
-        p.place(x=650,y=600)
+        pic4 = ImageTk.PhotoImage(Image.open("images/party.png"))
+        p = Button(frame1, width=120, height=120, image=pic4, command=lambda: getPartySongs())
+        p.grid(row=0, column=3, padx=50, pady=17)
 
         global pic5
-        pic5 = ImageTk.PhotoImage(Image.open("relaxed.png"))
-        r = Button(win,width=200,height=200, image=pic5)
-        r.place(x=950,y=600)
+        pic5 = ImageTk.PhotoImage(Image.open("images/relaxed.png"))
+        r = Button(frame1, width=120, height=120, image=pic5, command=lambda: getRelaxedSongs())
+        r.grid(row=0, column=4, padx=50, pady=17)
 
-    splash_win.after(2000, mainWin)
-    def print():
-        print("Hi")
+    splash_win.after(500, mainWin)
 
-    
-mainWindow = Tk() #initialize
+
+mainWindow = Tk()
 mainWindow.title("Login")
 mainWindow.geometry("4500x3000")
+mainWindow.state('zoomed')
 mainWindow.config()
 
-
 image1 = Image.open("login.jpg")
-image1 = image1.resize((1530,795), Image.ANTIALIAS)
+image1 = image1.resize((1530, 795), Image.ANTIALIAS)
 test1 = ImageTk.PhotoImage(image1)
 label1 = Label(image=test1)
 label1.image = test1
-label1.place(x = 0, y = 0)
-# canvas=Canvas(mainWindow, width=900, height=400)
-# canvas.place(x=300,y=200)
+label1.place(x=0, y=0)
 
-#LOGIN PASSWORD CHECK
+
+# LOGIN PASSWORD CHECK
 def login_check():
-    fd=open("login.json")
-    dct=json.load(fd)
-    username1=user_name.get()
-    
-    username=username1.lower()
-    password1=password.get()
-    flag=0
+    fd = open("login.json")
+    dct = json.load(fd)
+    username1 = login_username.get().lower()
+    password1 = login_password.get()
     for i in dct.keys():
-        if dct[i]["username"]==username and dct[i]["password"]==password1:
+        if dct[i]["username"] == username1 and dct[i]["password"] == password1:
             splash(username1)
-            user_name.delete(0,END)
-            password.delete(0,END)
-            flag=1
+            login_username.delete(0, END)
+            login_password.delete(0, END)
             break
 
     else:
-        user_name.delete(0,END)
-        password.delete(0,END)
-        m.showerror(title="Error",message="Username and Password don't match")
-        error_label=Label(mainWindow,text="Username and Password don't match",fg="black",font=("Times New Roman", 20, "bold"))
-        error_label.place(x=350,y=550)
-        login_done = Button(mainWindow,text="Login",bg='#C6E2FF',width=10,font="poppins 12 bold",command= login_check)
-        login_done.place(x=450,y=500)
-        
+        login_username.delete(0, END)
+        login_password.delete(0, END)
+        m.showerror(title="Error", message="Username and Password don't match")
+        login_done = Button(mainWindow, text="Login", bg='#C6E2FF', width=10, font="poppins 12 bold",
+                            command=login_check)
+        login_done.place(x=450, y=500)
 
 
-
-#REGISTRATION INFO SAVING
+# REGISTRATION INFO SAVING
 def get_regIngo():
-    
-    username=user_name1.get()
-    username=username.lower()
-    password=password1.get()
-    age=age2.get()
-    gender=gender1.get()
-    
-    try:
-        fd=open("login.json")
-        dct=json.load(fd)
-        
-        dct[len(dct.keys())+1]={"username":username,"password":password,"age":age,"gender":gender}
-        print(len(dct.keys()))
-    except:
-        
-        dct={1:{"username":username,"password":password,"age":age,"gender":gender}}
-        print(len(dct.keys()))
+    username = input_username.get().lower()
+    password = input_password.get()
+    age = input_age.get()
+    gender = input_gender.get()
 
-    ls=json.dumps(dct)
-    print(dct)
-    fh=open('login.json','w')
-    fh.write(ls)
-    fh.close()
-    m.showinfo(title="Registration Done",message='''Registration successful
-Please Login to continue''')
-    gender1.delete(0,END)
-    age2.delete(0,END)
-    password1.delete(0,END)
-    user_name1.delete(0,END)
-
-#print(username,password,age,gender)
-#LOGIN PART
-Login_label=Label(mainWindow,text="LOGIN",fg="red",font="poppins 25 bold")
-Login_label.place(x=420,y=170)
-Reg_label=Label(mainWindow,text="REGISTER",fg="red",font="poppins 25 bold")
-Reg_label.place(x=870,y=170)
-username = Label(mainWindow,text="Username:",fg="blue", font="poppins 15 bold")
-username.place(x=350,y=270)
-user_name=Entry(mainWindow, font="poppins 15 bold")
-user_name.place(x=450,y=270)
-pass_word = Label(mainWindow,text="Password ",fg="blue", font="poppins 15 bold")
-pass_word.place(x=350,y=370)
-password=Entry(mainWindow,show="*", font="poppins 15 bold")
-password.place(x=450,y=370)
-print(password.get())
-# canvas.create_line(460,80,460,250, fill="green", width=5)
-login_done = Button(mainWindow,text="Login",bg='#C6E2FF',width=10,font="poppins 12 bold",command= login_check)
-login_done.place(x=450,y=500)
-
-#REGISTRATION PART 
-sign_in = Button(mainWindow,text="Register",bg='#C6E2FF',width=10,font="poppins 12 bold",command=get_regIngo)
-sign_in.place(x=900,y=500)
-username1 = Label(mainWindow,text="Username:",fg="red", font="poppins 15 bold")
-username1.place(x=800,y=270)
-user_name1=Entry(mainWindow, font="poppins 15 bold")
-user_name1.place(x=900,y=270)
-pass_word1 = Label(mainWindow,text="Password ",fg="red", font="poppins 15 bold")
-pass_word1.place(x=800,y=320)
-password1=Entry(mainWindow, font="poppins 15 bold")
-password1.place(x=900,y=320)
-age1=Label(mainWindow,text="Age ",fg="red", font="poppins 15 bold")
-age1.place(x=800,y=370)
-age2=Entry(mainWindow, font="poppins 15 bold")
-age2.place(x=900,y=370)
-gender=Label(mainWindow,text="Gender ",fg="red", font="poppins 15 bold")
-gender.place(x=800,y=420)
-gender1=Entry(mainWindow, font="poppins 15 bold")
-gender1.place(x=900,y=420)
+    if username == '' or password == '':
+        m.showinfo(title="Registration Failed", message='Please fill all fields to continue.')
+    else:
+        try:
+            fd = open("login.json")
+            dct = json.load(fd)
+            dct[len(dct.keys()) + 1] = {"username": username, "password": password, "age": age, "gender": gender}
+        except (Exception,):
+            dct = {1: {"username": username, "password": password, "age": age, "gender": gender}}
+        ls = json.dumps(dct)
+        fh = open('login.json', 'w')
+        fh.write(ls)
+        fh.close()
+        m.showinfo(title="Registration Done", message='''Registration successful
+            Please Login to continue''')
+    input_username.delete(0, END)
+    input_password.delete(0, END)
+    input_age.delete(0, END)
+    input_gender.delete(0, END)
 
 
+# LOGIN PART
+Label(mainWindow, text="LOGIN", fg="red", font="poppins 25 bold").place(x=420, y=170)
+Label(mainWindow, text="REGISTER", fg="red", font="poppins 25 bold").place(x=870, y=170)
+Label(mainWindow, text="Username:", fg="blue", font="poppins 15 bold").place(x=350, y=270)
+login_username = Entry(mainWindow, font="poppins 15 bold")
+login_username.place(x=450, y=270)
+Label(mainWindow, text="Password ", fg="blue", font="poppins 15 bold").place(x=350, y=370)
+login_password = Entry(mainWindow, show="*", font="poppins 15 bold")
+login_password.place(x=450, y=370)
+Login_done = Button(mainWindow, text="Login", bg='#C6E2FF', width=10, font="poppins 12 bold", command=login_check)
+Login_done.place(x=450, y=500)
 
-
-
-
-
-
+# REGISTRATION PART
+sign_in = Button(mainWindow, text="Register", bg='#C6E2FF', width=10, font="poppins 12 bold", command=get_regIngo)
+sign_in.place(x=900, y=500)
+Label(mainWindow, text="Username:", fg="red", font="poppins 15 bold").place(x=800, y=270)
+input_username = Entry(mainWindow, font="poppins 15 bold")
+input_username.place(x=900, y=270)
+Label(mainWindow, text="Password ", fg="red", font="poppins 15 bold").place(x=800, y=320)
+input_password = Entry(mainWindow, font="poppins 15 bold")
+input_password.place(x=900, y=320)
+Label(mainWindow, text="Age ", fg="red", font="poppins 15 bold").place(x=800, y=370)
+input_age = Entry(mainWindow, font="poppins 15 bold")
+input_age.place(x=900, y=370)
+Label(mainWindow, text="Gender ", fg="red", font="poppins 15 bold").place(x=800, y=420)
+input_gender = Entry(mainWindow, font="poppins 15 bold")
+input_gender.place(x=900, y=420)
 
 mainloop()
+
