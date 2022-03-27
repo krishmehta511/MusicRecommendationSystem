@@ -24,113 +24,113 @@ def splash(username):
         win.state('zoomed')
         win.geometry("4500x3000")
 
-        frame1 = Frame(win, bg='grey')
+        frame1 = Frame(win)
         frame1.pack(anchor=NW, fill=X)
-        frame2 = Frame(win, bg='grey', height=600)
+        frame2 = Frame(win, height=600)
         frame2.pack(side=TOP, fill=BOTH)
 
         def getHappySongs():
             for widgets in frame2.winfo_children():
                 widgets.destroy()
-            Label(frame2, text='\t', bg='grey').grid(row=0, column=0, padx=20, pady=5, sticky=W)
-            Label(frame2, text='Songs\t\t\t\t', font='comics 25 bold underline', bg='grey'). \
+            Label(frame2, text='\t').grid(row=0, column=0, padx=20, pady=5, sticky=W)
+            Label(frame2, text='Songs\t\t\t\t', font='comics 25 bold underline'). \
                 grid(row=0, column=1, pady=5, sticky=W)
-            Label(frame2, text='Artist', font='comics 25 bold underline', bg='grey'). \
+            Label(frame2, text='Artist', font='comics 25 bold underline'). \
                 grid(row=0, column=2, pady=5, sticky=W)
             genre_list = ['indian']
             s_rec = sp.recommendations(seed_genres=genre_list, limit=70)
             count = 0
             for i in range(70):
-                if count < 10:
+                if count < 9:
                     rec = s_rec['tracks'][i]['name']
                     song_id = [s_rec['tracks'][i]['id']]
                     artist = s_rec['tracks'][i]['artists'][0]['name']
                     valence = sp.audio_features(song_id)[0]['valence']
                     if valence >= 0.65:
                         count += 1
-                        Label(frame2, text=f'{count} .', font='comics 18 normal', bg='grey'). \
+                        Label(frame2, text=f'{count} .', font='comics 18 normal'). \
                             grid(row=count, column=0, padx=10, pady=8, sticky=W)
-                        Label(frame2, text=rec, font='comics 18 normal', bg='grey').\
+                        Label(frame2, text=rec, font='comics 18 normal').\
                             grid(row=count, column=1, padx=10, pady=8, sticky=W)
-                        Label(frame2, text=artist, font='comics 18 normal', bg='grey').\
+                        Label(frame2, text=artist, font='comics 18 normal').\
                             grid(row=count, column=2, padx=10, pady=8, sticky=W)
 
         def getSadSongs():
             for widgets in frame2.winfo_children():
                 widgets.destroy()
-            Label(frame2, text='\t', bg='grey').grid(row=0, column=0, padx=20, pady=5, sticky=W)
-            Label(frame2, text='Songs\t\t\t\t', font='comics 25 bold underline', bg='grey'). \
+            Label(frame2, text='\t').grid(row=0, column=0, padx=20, pady=5, sticky=W)
+            Label(frame2, text='Songs\t\t\t\t', font='comics 25 bold underline'). \
                 grid(row=0, column=1, pady=5, sticky=W)
-            Label(frame2, text='Artist', font='comics 25 bold underline', bg='grey'). \
+            Label(frame2, text='Artist', font='comics 25 bold underline'). \
                 grid(row=0, column=2, pady=5, sticky=W)
             genre_list = ['indian']
             s_rec = sp.recommendations(seed_genres=genre_list, limit=70)
             count = 0
             for i in range(70):
-                if count < 10:
+                if count < 9:
                     rec = s_rec['tracks'][i]['name']
                     song_id = [s_rec['tracks'][i]['id']]
                     artist = s_rec['tracks'][i]['artists'][0]['name']
                     valence = sp.audio_features(song_id)[0]['valence']
                     if valence <= 0.4:
                         count += 1
-                        Label(frame2, text=f'{count} .', font='comics 18 normal', bg='grey'). \
+                        Label(frame2, text=f'{count} .', font='comics 18 normal'). \
                             grid(row=count, column=0, padx=10, pady=8, sticky=W)
-                        Label(frame2, text=rec, font='comics 18 normal', bg='grey').\
+                        Label(frame2, text=rec, font='comics 18 normal').\
                             grid(row=count, column=1, padx=10, pady=8, sticky=W)
-                        Label(frame2, text=artist, font='comics 18 normal', bg='grey').\
+                        Label(frame2, text=artist, font='comics 18 normal').\
                             grid(row=count, column=2, padx=10, pady=8, sticky=W)
 
         def getRelaxedSongs():
             for widgets in frame2.winfo_children():
                 widgets.destroy()
-            Label(frame2, text='\t', bg='grey').grid(row=0, column=0, padx=20, pady=5, sticky=W)
-            Label(frame2, text='Songs\t\t\t\t', font='comics 25 bold underline', bg='grey'). \
+            Label(frame2, text='\t').grid(row=0, column=0, padx=20, pady=5, sticky=W)
+            Label(frame2, text='Songs\t\t\t\t', font='comics 25 bold underline'). \
                 grid(row=0, column=1, pady=5, sticky=W)
-            Label(frame2, text='Artist', font='comics 25 bold underline', bg='grey'). \
+            Label(frame2, text='Artist', font='comics 25 bold underline'). \
                 grid(row=0, column=2, pady=5, sticky=W)
             genre_list = ['indian']
             s_rec = sp.recommendations(seed_genres=genre_list, limit=70)
             count = 0
             for i in range(70):
-                if count < 10:
+                if count < 9:
                     rec = s_rec['tracks'][i]['name']
                     song_id = [s_rec['tracks'][i]['id']]
                     artist = s_rec['tracks'][i]['artists'][0]['name']
                     energy = sp.audio_features(song_id)[0]['energy']
                     if energy <= 0.5:
                         count += 1
-                        Label(frame2, text=f'{count} .', font='comics 18 normal', bg='grey'). \
+                        Label(frame2, text=f'{count} .', font='comics 18 normal'). \
                             grid(row=count, column=0, padx=10, pady=8, sticky=W)
-                        Label(frame2, text=rec, font='comics 18 normal', bg='grey').\
+                        Label(frame2, text=rec, font='comics 18 normal').\
                             grid(row=count, column=1, padx=10, pady=8, sticky=W)
-                        Label(frame2, text=artist, font='comics 18 normal', bg='grey').\
+                        Label(frame2, text=artist, font='comics 18 normal').\
                             grid(row=count, column=2, padx=10, pady=8, sticky=W)
 
         def getPartySongs():
             for widgets in frame2.winfo_children():
                 widgets.destroy()
-            Label(frame2, text='\t', bg='grey').grid(row=0, column=0, padx=20, pady=5, sticky=W)
-            Label(frame2, text='Songs\t\t\t\t', font='comics 25 bold underline', bg='grey'). \
+            Label(frame2, text='\t').grid(row=0, column=0, padx=20, pady=5, sticky=W)
+            Label(frame2, text='Songs\t\t\t\t', font='comics 25 bold underline'). \
                 grid(row=0, column=1, pady=5, sticky=W)
-            Label(frame2, text='Artist', font='comics 25 bold underline', bg='grey'). \
+            Label(frame2, text='Artist', font='comics 25 bold underline'). \
                 grid(row=0, column=2, pady=5, sticky=W)
             genre_list = ['indian']
             s_rec = sp.recommendations(seed_genres=genre_list, limit=70)
             count = 0
             for i in range(70):
-                if count < 10:
+                if count < 9:
                     rec = s_rec['tracks'][i]['name']
                     song_id = [s_rec['tracks'][i]['id']]
                     artist = s_rec['tracks'][i]['artists'][0]['name']
                     danceability = sp.audio_features(song_id)[0]['danceability']
                     if danceability >= 0.75:
                         count += 1
-                        Label(frame2, text=f'{count} .', font='comics 18 normal', bg='grey'). \
+                        Label(frame2, text=f'{count} .', font='comics 18 normal'). \
                             grid(row=count, column=0, padx=10, pady=8, sticky=W)
-                        Label(frame2, text=rec, font='comics 18 normal', bg='grey').\
+                        Label(frame2, text=rec, font='comics 18 normal').\
                             grid(row=count, column=1, padx=10, pady=8, sticky=W)
-                        Label(frame2, text=artist, font='comics 18 normal', bg='grey').\
+                        Label(frame2, text=artist, font='comics 18 normal').\
                             grid(row=count, column=2, padx=10, pady=8, sticky=W)
 
         def getLoveSongs():
@@ -138,39 +138,39 @@ def splash(username):
                 widgets.destroy()
 
         global pic1
-        pic1 = ImageTk.PhotoImage(Image.open('images/happy2.png'))
-        h = Button(frame1, width=120, height=120, image=pic1, command=lambda: getHappySongs(), bd=0)
-        l1 = Label(frame1,text='Happy',fg='dark blue',bg='grey',font='comics 25 bold underline',width='15')
-        l1.grid(row=0,column=0)
-        h.grid(row=1, column=0, padx=50, pady=17)
+        pic1 = ImageTk.PhotoImage(Image.open('images/happy.png').resize((120, 120)))
+        l1 = Label(frame1, text='Happy', fg='dark blue', font='comics 25 bold underline')
+        l1.grid(row=0, column=0)
+        h = Button(frame1, bd=0, image=pic1, command=lambda: getHappySongs())
+        h.grid(row=1, column=0, padx=70, pady=17)
 
         global pic2
-        pic2 = ImageTk.PhotoImage(Image.open("images/sad2.png"))
-        s = Button(frame1, width=120, height=120, image=pic2, command=lambda: getSadSongs())
-        l2 = Label(frame1, text='Sad', fg='dark blue', bg='grey', font='comics 25 bold underline', width='15')
+        pic2 = ImageTk.PhotoImage(Image.open("images/sad.png").resize((120, 120)))
+        l2 = Label(frame1, text='Sad', fg='dark blue', font='comics 25 bold underline')
         l2.grid(row=0, column=1)
-        s.grid(row=1, column=1, padx=50, pady=17)
+        s = Button(frame1, bd=0, image=pic2, command=lambda: getSadSongs())
+        s.grid(row=1, column=1, padx=70, pady=17)
 
         global pic3
-        pic3 = ImageTk.PhotoImage(Image.open("images/love2.png"))
-        l = Button(frame1, width=120, height=120, image=pic3, command=lambda: getLoveSongs())
-        l3 = Label(frame1, text='Romantic', fg='dark blue', bg='grey', font='comics 25 bold underline', width='15')
+        pic3 = ImageTk.PhotoImage(Image.open("images/love.png").resize((120, 120)))
+        l3 = Label(frame1, text='Romantic', fg='dark blue', font='comics 25 bold underline')
         l3.grid(row=0, column=2)
-        l.grid(row=1, column=2, padx=50, pady=17)
+        l = Button(frame1, bd=0, image=pic3, command=lambda: getLoveSongs())
+        l.grid(row=1, column=2, padx=70, pady=17)
 
         global pic4
-        pic4 = ImageTk.PhotoImage(Image.open("images/party.png"))
-        p = Button(frame1, width=120, height=120, image=pic4, command=lambda: getPartySongs())
-        l4 = Label(frame1, text='Party', fg='dark blue', bg='grey', font='comics 25 bold underline', width='15')
+        pic4 = ImageTk.PhotoImage(Image.open("images/party.png").resize((120, 120)))
+        l4 = Label(frame1, text='Party', fg='dark blue', font='comics 25 bold underline')
         l4.grid(row=0, column=3)
-        p.grid(row=1, column=3, padx=50, pady=17)
+        p = Button(frame1, bd=0, image=pic4, command=lambda: getPartySongs())
+        p.grid(row=1, column=3, padx=70, pady=17)
 
         global pic5
-        pic5 = ImageTk.PhotoImage(Image.open("images/relaxed.png"))
-        r = Button(frame1, width=120, height=120, image=pic5, command=lambda: getRelaxedSongs())
-        l5 = Label(frame1, text='Relaxed', fg='dark blue', bg='grey', font='comics 25 bold underline', width='15')
+        pic5 = ImageTk.PhotoImage(Image.open("images/relaxed.png").resize((120, 120)))
+        l5 = Label(frame1, text='Relaxed', fg='dark blue', font='comics 25 bold underline')
         l5.grid(row=0, column=4)
-        r.grid(row=1, column=4, padx=50, pady=17)
+        r = Button(frame1, bd=0, image=pic5, command=lambda: getRelaxedSongs())
+        r.grid(row=1, column=4, padx=70, pady=17)
 
     splash_win.after(500, mainWin)
 
