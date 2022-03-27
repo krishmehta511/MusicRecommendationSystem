@@ -140,27 +140,37 @@ def splash(username):
         global pic1
         pic1 = ImageTk.PhotoImage(Image.open('images/happy2.png'))
         h = Button(frame1, width=120, height=120, image=pic1, command=lambda: getHappySongs(), bd=0)
-        h.grid(row=0, column=0, padx=50, pady=17)
+        l1 = Label(frame1,text='Happy',fg='dark blue',bg='grey',font='comics 25 bold underline',width='15')
+        l1.grid(row=0,column=0)
+        h.grid(row=1, column=0, padx=50, pady=17)
 
         global pic2
         pic2 = ImageTk.PhotoImage(Image.open("images/sad2.png"))
         s = Button(frame1, width=120, height=120, image=pic2, command=lambda: getSadSongs())
-        s.grid(row=0, column=1, padx=50, pady=17)
+        l2 = Label(frame1, text='Sad', fg='dark blue', bg='grey', font='comics 25 bold underline', width='15')
+        l2.grid(row=0, column=1)
+        s.grid(row=1, column=1, padx=50, pady=17)
 
         global pic3
         pic3 = ImageTk.PhotoImage(Image.open("images/love2.png"))
         l = Button(frame1, width=120, height=120, image=pic3, command=lambda: getLoveSongs())
-        l.grid(row=0, column=2, padx=50, pady=17)
+        l3 = Label(frame1, text='Romantic', fg='dark blue', bg='grey', font='comics 25 bold underline', width='15')
+        l3.grid(row=0, column=2)
+        l.grid(row=1, column=2, padx=50, pady=17)
 
         global pic4
         pic4 = ImageTk.PhotoImage(Image.open("images/party.png"))
         p = Button(frame1, width=120, height=120, image=pic4, command=lambda: getPartySongs())
-        p.grid(row=0, column=3, padx=50, pady=17)
+        l4 = Label(frame1, text='Party', fg='dark blue', bg='grey', font='comics 25 bold underline', width='15')
+        l4.grid(row=0, column=3)
+        p.grid(row=1, column=3, padx=50, pady=17)
 
         global pic5
         pic5 = ImageTk.PhotoImage(Image.open("images/relaxed.png"))
         r = Button(frame1, width=120, height=120, image=pic5, command=lambda: getRelaxedSongs())
-        r.grid(row=0, column=4, padx=50, pady=17)
+        l5 = Label(frame1, text='Relaxed', fg='dark blue', bg='grey', font='comics 25 bold underline', width='15')
+        l5.grid(row=0, column=4)
+        r.grid(row=1, column=4, padx=50, pady=17)
 
     splash_win.after(500, mainWin)
 
