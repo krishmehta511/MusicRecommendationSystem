@@ -17,18 +17,37 @@ def splash(username):
     splash_label.place(x=400,y=350)
     def mainWin():
         splash_win.destroy()
-        win= Tk()
+        win= Toplevel()
         win.title("Music Recommendation App")
         win.geometry("4500x3000")
         #mood buttons
 
-        pic = ImageTk.PhotoImage(Image.open("happy.png"))
-        h = Button(win, image=pic).pack()
+        global pic
+        pic = ImageTk.PhotoImage(Image.open("happy2.png"))
+        h = Button(win,width=200,height=200, image=pic)
+        h.place(x=500,y=200)
+       # l1 = Label(win,text='HAPPY').place(x=580,y=180)
 
+        global pic2
+        pic2 = ImageTk.PhotoImage(Image.open("sad2.png"))
+        s = Button(win, width=200,height=200,image=pic2 )
+        s.place(x=800,y=200)
 
+        global pic3
+        pic3 = ImageTk.PhotoImage(Image.open("love2.png"))
+        l = Button(win,width=200,height=200, image=pic3)
+        l.place(x=1100, y=200)
 
+        global pic4
+        pic4 = ImageTk.PhotoImage(Image.open("party.png"))
+        p = Button(win,width=200,height=200, image=pic4)
+        p.place(x=650,y=600)
 
- 
+        global pic5
+        pic5 = ImageTk.PhotoImage(Image.open("relaxed.png"))
+        r = Button(win,width=200,height=200, image=pic5)
+        r.place(x=950,y=600)
+
     splash_win.after(2000, mainWin)
     def print():
         print("Hi")
