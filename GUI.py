@@ -1,3 +1,4 @@
+import random
 from tkinter import *
 from PIL import Image, ImageTk
 import tkinter.messagebox as m
@@ -90,13 +91,13 @@ def splash(username):
             Label(frame2, text='Artist', font='comics 25 bold underline'). \
                 grid(row=0, column=2, pady=5, sticky=W)
             genre_list = ['indian']
-            s_rec = sp.recommendations(seed_genres=genre_list, limit=70)
+            s_rec = sp.recommendations(seed_genres=genre_list, limit=70)['tracks']
             count = 0
             for i in range(70):
                 if count < 9:
-                    rec = s_rec['tracks'][i]['name']
-                    song_id = [s_rec['tracks'][i]['id']]
-                    artist = s_rec['tracks'][i]['artists'][0]['name']
+                    rec = s_rec[i]['name']
+                    song_id = [s_rec[i]['id']]
+                    artist = s_rec[i]['artists'][0]['name']
                     energy = sp.audio_features(song_id)[0]['energy']
                     if energy <= 0.5:
                         count += 1
@@ -133,9 +134,29 @@ def splash(username):
                         Label(frame2, text=artist, font='comics 18 normal').\
                             grid(row=count, column=2, padx=10, pady=8, sticky=W)
 
-        def getLoveSongs():
+        def getRomanticSongs():
             for widgets in frame2.winfo_children():
                 widgets.destroy()
+            Label(frame2, text='\t').grid(row=0, column=0, padx=20, pady=5, sticky=W)
+            Label(frame2, text='Songs\t\t\t\t', font='comics 25 bold underline'). \
+                grid(row=0, column=1, pady=5, sticky=W)
+            Label(frame2, text='Artist', font='comics 25 bold underline'). \
+                grid(row=0, column=2, pady=5, sticky=W)
+            playlist_id = '4t56C44BYJ6b9enYS2Lkod'
+            tracks = sp.playlist_items(playlist_id)['items']
+            total = sp.playlist_items(playlist_id)['total']
+            count = 0
+            while count <= 9:
+                i = random.randint(0, total)
+                rec = tracks[i]['track']['name']
+                artist = tracks[i]['track']['artists'][0]['name']
+                count += 1
+                Label(frame2, text=f'{count} .', font='comics 18 normal'). \
+                    grid(row=count, column=0, padx=10, pady=8, sticky=W)
+                Label(frame2, text=rec, font='comics 18 normal'). \
+                    grid(row=count, column=1, padx=10, pady=8, sticky=W)
+                Label(frame2, text=artist, font='comics 18 normal'). \
+                    grid(row=count, column=2, padx=10, pady=8, sticky=W)
 
         global pic1
         pic1 = ImageTk.PhotoImage(Image.open('images/happy.png').resize((120, 120)))
@@ -155,7 +176,7 @@ def splash(username):
         pic3 = ImageTk.PhotoImage(Image.open("images/love.png").resize((120, 120)))
         l3 = Label(frame1, text='Romantic', fg='dark blue', font='comics 25 bold underline')
         l3.grid(row=0, column=2)
-        l = Button(frame1, bd=0, image=pic3, command=lambda: getLoveSongs())
+        l = Button(frame1, bd=0, image=pic3, command=lambda: getRomanticSongs())
         l.grid(row=1, column=2, padx=70, pady=17)
 
         global pic4
