@@ -233,7 +233,7 @@ def login_check():
 
 
 # REGISTRATION INFO SAVING
-def get_regIngo():
+def get_regInfo():
     username = input_username.get().lower()
     password = input_password.get()
     age = input_age.get()
@@ -273,7 +273,7 @@ Login_done = Button(mainWindow, text="Login", bg='#C6E2FF', width=10, font="popp
 Login_done.place(x=450, y=500)
 
 # REGISTRATION PART
-sign_in = Button(mainWindow, text="Register", bg='#C6E2FF', width=10, font="poppins 12 bold", command=get_regIngo)
+sign_in = Button(mainWindow, text="Register", bg='#C6E2FF', width=10, font="poppins 12 bold", command=get_regInfo)
 sign_in.place(x=900, y=500)
 Label(mainWindow, text="Username:", fg="red", font="poppins 15 bold").place(x=800, y=270)
 input_username = Entry(mainWindow, font="poppins 15 bold")
